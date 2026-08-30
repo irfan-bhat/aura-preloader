@@ -6,7 +6,7 @@ A professional, lightweight WordPress plugin that displays a customizable full-s
 
 | Property | Value |
 |----------|-------|
-| **Version** | 1.2.9 |
+| **Version** | 1.3.0 |
 | **Requires WordPress** | 5.5 or higher |
 | **Tested up to** | 7.1 |
 | **Requires PHP** | 7.4 or higher |
@@ -123,7 +123,7 @@ Starting with version 1.2.5, Aura Preloader includes built-in GitHub release int
 
 ## 📊 Changelog
 
-### Version 1.2.7 (Latest)
+### Version 1.3.0 (Latest)
 
 **Rebranding & Preset Enhancements:**
 - 🎨 Rebranded plugin to **Aura Preloader** (`aura-preloader`)

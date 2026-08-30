@@ -4,7 +4,7 @@ Tags: preloader, loading screen, spinner, progress bar, backdrop blur
 Requires at least: 5.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,7 +41,7 @@ Yes. In **Settings › Aura Preloader**, toggle the "Show on mobile devices" opt
 
 == Changelog ==
 
-= 1.2.9 =
+= 1.3.0 =
 * Rebranded plugin to Aura Preloader.
 * Added preset styles and progress bar configurations.
 * Updated compatibility for latest WordPress releases.
