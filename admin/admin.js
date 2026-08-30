@@ -1,4 +1,4 @@
-/* Aura Preloader v1.2 — admin JS — Irfan Bhat */
+/* Aura Preloader v1.3.0 — admin JS — Irfan Bhat */
 jQuery(function ($) {
 
     /* ── Media uploader ── */
@@ -121,5 +121,61 @@ jQuery(function ($) {
             $('#aurav-placeholder').show();
         }
     }
+
+    /* ── Animation Style (spinner type) ── */
+    var spinnerLabels = {
+        'spinner'      : 'Spinner Ring',
+        'dots'         : 'Bouncing Dots',
+        'pulse'        : 'Pulse',
+        'bars'         : 'Bars',
+        'spinner-dots' : 'Spinner Dots'
+    };
+
+    function applySpinnerType(type) {
+        var ring = $('#aurav-ring');
+        // Remove all previous type classes
+        ring.removeClass(function (i, cls) {
+            return (cls.match(/(^|\s)aurav-type-\S+/g) || []).join(' ');
+        });
+        ring.addClass('aurav-type-' + type);
+        // Update the preview label if one exists
+        $('#aurav-spinner-label').text(spinnerLabels[type] || type);
+    }
+
+    $('#aura-spinner-type').on('change', function () {
+        applySpinnerType($(this).val());
+    });
+
+    /* ── Progress Bar Style ── */
+    function applyProgressStyle(style) {
+        var bar  = $('#aurav-bar');
+        var fill = $('#aurav-fill');
+        if (style === 'circular') {
+            bar.addClass('aurav-circular').removeClass('aurav-linear');
+            fill.addClass('aurav-circular-fill').removeClass('aurav-linear-fill');
+        } else {
+            bar.addClass('aurav-linear').removeClass('aurav-circular');
+            fill.addClass('aurav-linear-fill').removeClass('aurav-circular-fill');
+        }
+        // Update label if present
+        $('#aurav-bar-style-label').text(style === 'circular' ? 'Circular Ring' : 'Linear Bar');
+    }
+
+    $('#aura-progress-style').on('change', function () {
+        applyProgressStyle($(this).val());
+    });
+
+    /* ── Initialise preview from saved values on page load ── */
+    (function init() {
+        applySpinnerType($('#aura-spinner-type').val() || 'spinner');
+        applyProgressStyle($('#aura-progress-style').val() || 'linear');
+        // Sync accent to ring/fill initial colour
+        var accent = $('#aura-accent').val();
+        if (accent) {
+            $('#aurav-ring').css('border-top-color', accent);
+            $('#aurav-fill').css('background', accent);
+        }
+        rebuildOverlay();
+    })();
 });
 

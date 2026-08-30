@@ -441,10 +441,16 @@ function aura_settings_page() {
                                 <img id="aurav-img" src="" style="display:none;width:<?php echo esc_attr( $o['logo_width'] ); ?>px;">
                                 <?php endif; ?>
                             </div>
+                            <span id="aurav-spinner-label" class="aurav-style-label">
+                                <?php echo esc_html( aura_get_presets()[ $o['spinner_type'] ]['label'] ?? 'Spinner Ring' ); ?>
+                            </span>
                             <div class="aura-prev-bar" id="aurav-bar">
                                 <div class="aura-prev-fill" id="aurav-fill"
                                     style="background:<?php echo esc_attr( $o['accent_color'] ); ?>"></div>
                             </div>
+                            <span id="aurav-bar-style-label" class="aurav-style-label">
+                                <?php echo esc_html( aura_get_progress_bar_styles()[ $o['progress_bar_style'] ]['label'] ?? 'Linear Bar' ); ?>
+                            </span>
                         </div>
                     </div>
                     <p class="description" style="text-align:center;margin-top:.5rem">
