@@ -1,38 +1,40 @@
 <?php
 /**
- * Plugin Name: WP Preloader
- * Plugin URI:  https://wordpress.org/plugins/wp-preloader/
+ * Plugin Name: Aura Preloader
+ * Plugin URI:  https://wordpress.org/plugins/aura-preloader/
  * Description: A customisable full-screen backdrop-blur preloader with your logo, spinner, and progress bar.
  * Version:     1.2.7
  * Author:      Irfan Bhat
  * Author URI:  https://irfanbhat.com
  * License:     GPL-2.0+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: wp-preloader
+ * Text Domain: aura-preloader
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LP_VERSION',  '1.2.7' );
-define( 'LP_DIR',      plugin_dir_path( __FILE__ ) );
-define( 'LP_URL',      plugin_dir_url( __FILE__ ) );
-define( 'LP_OPT',      'logo_preloader_options' );
-define( 'LP_GITHUB_REPO', 'irfanbhat/wordpress-preloader' );
+define( 'AURA_VERSION',     '1.2.7' );
+define( 'AURA_DIR',         plugin_dir_path( __FILE__ ) );
+define( 'AURA_URL',         plugin_dir_url( __FILE__ ) );
+define( 'AURA_OPT',         'aura_preloader_options' );
+define( 'AURA_GITHUB_REPO', 'irfanbhat/aura-preloader' );
 
 /* ---------------------------------------------------------------
    Plugin update checker (GitHub releases)
 --------------------------------------------------------------- */
-require_once LP_DIR . 'includes/plugin-update-checker.php';
-require_once LP_DIR . 'includes/presets.php';
+require_once AURA_DIR . 'includes/plugin-update-checker.php';
+require_once AURA_DIR . 'includes/presets.php';
 
 add_action( 'plugins_loaded', function() {
-    new LP_Github_Updater( LP_GITHUB_REPO, plugin_basename( __FILE__ ), 'wp-preloader' );
+    if ( class_exists( 'Aura_Github_Updater' ) ) {
+        new Aura_Github_Updater( AURA_GITHUB_REPO, plugin_basename( __FILE__ ), 'aura-preloader' );
+    }
 } );
 
 /* ---------------------------------------------------------------
    Default options
 --------------------------------------------------------------- */
-function lp_defaults() {
+function aura_defaults() {
     return [
         'overlay_color'      => '#ffffff',
         'overlay_opacity'    => 20,
@@ -52,25 +54,30 @@ function lp_defaults() {
     ];
 }
 
-function lp_options() {
-    return wp_parse_args( get_option( LP_OPT, [] ), lp_defaults() );
+function aura_options() {
+    $saved = get_option( AURA_OPT );
+    if ( false === $saved ) {
+        // Migration fallback for previous option key
+        $saved = get_option( 'logo_preloader_options', [] );
+    }
+    return wp_parse_args( $saved, aura_defaults() );
 }
 
 /* ---------------------------------------------------------------
    Activation — save defaults
 --------------------------------------------------------------- */
 register_activation_hook( __FILE__, function() {
-    if ( ! get_option( LP_OPT ) ) {
-        update_option( LP_OPT, lp_defaults() );
+    if ( ! get_option( AURA_OPT ) ) {
+        update_option( AURA_OPT, aura_options() );
     }
 });
 
 /* ---------------------------------------------------------------
    Front-end: inject preloader HTML right after <body>
 --------------------------------------------------------------- */
-add_action( 'wp_body_open', 'lp_render_preloader' );
-function lp_render_preloader() {
-    $o        = lp_options();
+add_action( 'wp_body_open', 'aura_render_preloader' );
+function aura_render_preloader() {
+    $o        = aura_options();
 
     // Skip on mobile if disabled
     if ( ! $o['enable_mobile'] && wp_is_mobile() ) return;
@@ -78,19 +85,19 @@ function lp_render_preloader() {
     $logo_w   = absint( $o['logo_width'] );
     $show_img = $logo_src ? "<img src=\"{$logo_src}\" alt=\"\" style=\"width:{$logo_w}px;\">" : '';
     ?>
-    <div id="lp-preloader" role="status" aria-label="<?php esc_attr_e( 'Loading', 'wp-preloader' ); ?>">
-        <div class="lp-inner">
+    <div id="aura-preloader" role="status" aria-label="<?php esc_attr_e( 'Loading', 'aura-preloader' ); ?>">
+        <div class="aura-inner">
             <?php if ( $o['show_ring'] ) : ?>
-            <div class="lp-wrap">
-                <div class="lp-ring"></div>
+            <div class="aura-wrap">
+                <div class="aura-ring"></div>
                 <?php echo $show_img; ?>
             </div>
             <?php elseif ( $show_img ) : ?>
-            <div class="lp-wrap"><?php echo $show_img; ?></div>
+            <div class="aura-wrap"><?php echo $show_img; ?></div>
             <?php endif; ?>
 
             <?php if ( $o['show_bar'] ) : ?>
-            <div class="lp-bar"><div class="lp-fill"></div></div>
+            <div class="aura-bar"><div class="aura-fill"></div></div>
             <?php endif; ?>
         </div>
     </div>
@@ -100,36 +107,36 @@ function lp_render_preloader() {
 /* ---------------------------------------------------------------
    Front-end: enqueue CSS + JS (with inline config)
 --------------------------------------------------------------- */
-add_action( 'wp_enqueue_scripts', 'lp_enqueue_frontend' );
-function lp_enqueue_frontend() {
-    $o = lp_options();
+add_action( 'wp_enqueue_scripts', 'aura_enqueue_frontend' );
+function aura_enqueue_frontend() {
+    $o = aura_options();
 
     // Skip on mobile if disabled
     if ( ! $o['enable_mobile'] && wp_is_mobile() ) return;
 
     wp_enqueue_style(
-        'wp-preloader',
-        LP_URL . 'css/preloader.css',
+        'aura-preloader',
+        AURA_URL . 'css/preloader.css',
         [],
-        LP_VERSION
+        AURA_VERSION
     );
 
     // Enqueue animation styles based on selected speed
     $animation_speed = sanitize_text_field( $o['animation_speed'] ?? 'normal' );
     wp_enqueue_style(
-        'wp-preloader-animation-' . $animation_speed,
-        LP_URL . 'css/animations/' . $animation_speed . '.css',
-        [ 'wp-preloader' ],
-        LP_VERSION
+        'aura-preloader-animation-' . $animation_speed,
+        AURA_URL . 'css/animations/' . $animation_speed . '.css',
+        [ 'aura-preloader' ],
+        AURA_VERSION
     );
 
     // Enqueue progress bar styles if enabled
     if ( ! empty( $o['show_progress'] ) ) {
         wp_enqueue_style(
-            'wp-preloader-progress-bars',
-            LP_URL . 'css/progress-bars.css',
-            [ 'wp-preloader' ],
-            LP_VERSION
+            'aura-preloader-progress-bars',
+            AURA_URL . 'css/progress-bars.css',
+            [ 'aura-preloader' ],
+            AURA_VERSION
         );
     }
 
@@ -145,26 +152,26 @@ function lp_enqueue_frontend() {
     $alpha   = round( $overlay_opacity / 100, 2 );
     $rgba    = "rgba({$r},{$g},{$b},{$alpha})";
 
-    $inline  = "#lp-preloader{--lp-overlay:{$rgba};--lp-blur:{$blur}px;--lp-accent:{$accent};--lp-logo-w:{$logo_w}px;}";
-    wp_add_inline_style( 'wp-preloader', $inline );
+    $inline  = "#aura-preloader{--aura-overlay:{$rgba};--aura-blur:{$blur}px;--aura-accent:{$accent};--aura-logo-w:{$logo_w}px;}";
+    wp_add_inline_style( 'aura-preloader', $inline );
 
     wp_enqueue_script(
-        'wp-preloader',
-        LP_URL . 'js/preloader.js',
+        'aura-preloader',
+        AURA_URL . 'js/preloader.js',
         [],
-        LP_VERSION,
+        AURA_VERSION,
         true   // footer
     );
 
     // Pass config to JS
-    wp_localize_script( 'wp-preloader', 'lpConfig', [
+    wp_localize_script( 'aura-preloader', 'auraConfig', [
         'fade'              => absint( $o['fade_duration'] ),
         'minDisplay'        => absint( $o['min_display'] ),
         'spinnerType'       => sanitize_text_field( $o['spinner_type'] ?? 'spinner' ),
         'animationSpeed'    => $animation_speed,
         'progressBarStyle'  => sanitize_text_field( $o['progress_bar_style'] ?? 'linear' ),
         'showProgress'      => ! empty( $o['show_progress'] ),
-        'svgUrl'            => LP_URL . 'assets/svgs/',
+        'svgUrl'            => AURA_URL . 'assets/svgs/',
     ]);
 }
 
@@ -173,23 +180,23 @@ function lp_enqueue_frontend() {
 --------------------------------------------------------------- */
 add_action( 'admin_menu', function() {
     add_options_page(
-        __( 'WP Preloader', 'wp-preloader' ),
-        __( 'WP Preloader', 'wp-preloader' ),
+        __( 'Aura Preloader', 'aura-preloader' ),
+        __( 'Aura Preloader', 'aura-preloader' ),
         'manage_options',
-        'wp-preloader',
-        'lp_settings_page'
+        'aura-preloader',
+        'aura_settings_page'
     );
 });
 
-add_action( 'admin_init', 'lp_register_settings' );
-function lp_register_settings() {
-    register_setting( 'wp_preloader_group', LP_OPT, [
-        'sanitize_callback' => 'lp_sanitize_options',
+add_action( 'admin_init', 'aura_register_settings' );
+function aura_register_settings() {
+    register_setting( 'aura_preloader_group', AURA_OPT, [
+        'sanitize_callback' => 'aura_sanitize_options',
     ]);
 }
 
-function lp_sanitize_options( $input ) {
-    $d   = lp_defaults();
+function aura_sanitize_options( $input ) {
+    $d   = aura_defaults();
     $out = [];
     $out['overlay_color']       = sanitize_hex_color( $input['overlay_color']   ?? $d['overlay_color'] )   ?: $d['overlay_color'];
     $out['overlay_opacity']     = max( 0,  min( 100,  absint( $input['overlay_opacity'] ?? $d['overlay_opacity'] ) ) );
@@ -204,13 +211,13 @@ function lp_sanitize_options( $input ) {
     $out['enable_mobile']       = ! empty( $input['enable_mobile'] );
     
     // Validate preset options
-    $spinners = array_keys( lp_get_presets() );
+    $spinners = array_keys( aura_get_presets() );
     $out['spinner_type']        = in_array( $input['spinner_type'] ?? '', $spinners, true ) ? sanitize_text_field( $input['spinner_type'] ) : $d['spinner_type'];
     
-    $speeds = array_keys( lp_get_animation_speeds() );
+    $speeds = array_keys( aura_get_animation_speeds() );
     $out['animation_speed']     = in_array( $input['animation_speed'] ?? '', $speeds, true ) ? sanitize_text_field( $input['animation_speed'] ) : $d['animation_speed'];
     
-    $bars = array_keys( lp_get_progress_bar_styles() );
+    $bars = array_keys( aura_get_progress_bar_styles() );
     $out['progress_bar_style']  = in_array( $input['progress_bar_style'] ?? '', $bars, true ) ? sanitize_text_field( $input['progress_bar_style'] ) : $d['progress_bar_style'];
     
     $out['show_progress']       = ! empty( $input['show_progress'] );
@@ -221,111 +228,111 @@ function lp_sanitize_options( $input ) {
    Admin: enqueue media uploader
 --------------------------------------------------------------- */
 add_action( 'admin_enqueue_scripts', function( $hook ) {
-    if ( $hook !== 'settings_page_wp-preloader' ) return;
+    if ( $hook !== 'settings_page_aura-preloader' ) return;
     wp_enqueue_media();
-    wp_enqueue_style( 'lp-admin', LP_URL . 'admin/admin.css', [], LP_VERSION );
-    wp_enqueue_script( 'lp-admin', LP_URL . 'admin/admin.js', [ 'jquery' ], LP_VERSION, true );
+    wp_enqueue_style( 'aura-admin', AURA_URL . 'admin/admin.css', [], AURA_VERSION );
+    wp_enqueue_script( 'aura-admin', AURA_URL . 'admin/admin.js', [ 'jquery' ], AURA_VERSION, true );
 });
 
 /* ---------------------------------------------------------------
    Settings page HTML
 --------------------------------------------------------------- */
-function lp_settings_page() {
+function aura_settings_page() {
     if ( ! current_user_can( 'manage_options' ) ) return;
-    $o = lp_options();
+    $o = aura_options();
     ?>
-    <div class="wrap lp-wrap-admin">
-        <h1><?php esc_html_e( 'WP Preloader Settings', 'wp-preloader' ); ?></h1>
+    <div class="wrap aura-wrap-admin">
+        <h1><?php esc_html_e( 'Aura Preloader Settings', 'aura-preloader' ); ?></h1>
 
-        <div class="lp-admin-layout">
+        <div class="aura-admin-layout">
             <!-- ── Form ── -->
-            <div class="lp-form-col">
+            <div class="aura-form-col">
                 <form method="post" action="options.php">
-                    <?php settings_fields( 'wp_preloader_group' ); ?>
+                    <?php settings_fields( 'aura_preloader_group' ); ?>
 
-                    <div class="lp-card">
-                        <h2><?php esc_html_e( 'Logo', 'wp-preloader' ); ?></h2>
+                    <div class="aura-card">
+                        <h2><?php esc_html_e( 'Logo', 'aura-preloader' ); ?></h2>
 
-                        <div class="lp-field">
-                            <label><?php esc_html_e( 'Logo image', 'wp-preloader' ); ?></label>
-                            <div class="lp-media-row">
-                                <input type="text" id="lp-logo-url" name="<?php echo LP_OPT; ?>[logo_url]"
+                        <div class="aura-field">
+                            <label><?php esc_html_e( 'Logo image', 'aura-preloader' ); ?></label>
+                            <div class="aura-media-row">
+                                <input type="text" id="aura-logo-url" name="<?php echo AURA_OPT; ?>[logo_url]"
                                     value="<?php echo esc_attr( $o['logo_url'] ); ?>" class="regular-text">
-                                <button type="button" id="lp-upload-btn" class="button">
-                                    <?php esc_html_e( 'Choose image', 'wp-preloader' ); ?>
+                                <button type="button" id="aura-upload-btn" class="button">
+                                    <?php esc_html_e( 'Choose image', 'aura-preloader' ); ?>
                                 </button>
-                                <button type="button" id="lp-remove-btn" class="button lp-remove"
+                                <button type="button" id="aura-remove-btn" class="button aura-remove"
                                     <?php echo $o['logo_url'] ? '' : 'style="display:none"'; ?>>
-                                    <?php esc_html_e( 'Remove', 'wp-preloader' ); ?>
+                                    <?php esc_html_e( 'Remove', 'aura-preloader' ); ?>
                                 </button>
                             </div>
                             <?php if ( $o['logo_url'] ) : ?>
-                            <div id="lp-preview-wrap">
-                                <img id="lp-img-preview" src="<?php echo esc_url( $o['logo_url'] ); ?>" alt="">
+                            <div id="aura-preview-wrap">
+                                <img id="aura-img-preview" src="<?php echo esc_url( $o['logo_url'] ); ?>" alt="">
                             </div>
                             <?php else : ?>
-                            <div id="lp-preview-wrap" style="display:none">
-                                <img id="lp-img-preview" src="" alt="">
+                            <div id="aura-preview-wrap" style="display:none">
+                                <img id="aura-img-preview" src="" alt="">
                             </div>
                             <?php endif; ?>
                         </div>
 
-                        <div class="lp-field lp-two-col">
+                        <div class="aura-field aura-two-col">
                             <div>
-                                <label for="lp-logo-width"><?php esc_html_e( 'Logo width (px)', 'wp-preloader' ); ?></label>
-                                <input type="number" id="lp-logo-width" name="<?php echo LP_OPT; ?>[logo_width]"
+                                <label for="aura-logo-width"><?php esc_html_e( 'Logo width (px)', 'aura-preloader' ); ?></label>
+                                <input type="number" id="aura-logo-width" name="<?php echo AURA_OPT; ?>[logo_width]"
                                     value="<?php echo esc_attr( $o['logo_width'] ); ?>" min="20" max="300" class="small-text"> px
                             </div>
                         </div>
                     </div>
 
-                    <div class="lp-card">
-                        <h2><?php esc_html_e( 'Backdrop blur', 'wp-preloader' ); ?></h2>
+                    <div class="aura-card">
+                        <h2><?php esc_html_e( 'Backdrop blur', 'aura-preloader' ); ?></h2>
 
-                        <div class="lp-field lp-two-col">
+                        <div class="aura-field aura-two-col">
                             <div>
-                                <label for="lp-overlay-color"><?php esc_html_e( 'Overlay tint', 'wp-preloader' ); ?></label>
-                                <input type="color" id="lp-overlay-color" name="<?php echo LP_OPT; ?>[overlay_color]"
+                                <label for="aura-overlay-color"><?php esc_html_e( 'Overlay tint', 'aura-preloader' ); ?></label>
+                                <input type="color" id="aura-overlay-color" name="<?php echo AURA_OPT; ?>[overlay_color]"
                                     value="<?php echo esc_attr( $o['overlay_color'] ); ?>">
-                                <input type="text" class="lp-hex-text" data-for="lp-overlay-color"
+                                <input type="text" class="aura-hex-text" data-for="aura-overlay-color"
                                     value="<?php echo esc_attr( $o['overlay_color'] ); ?>" maxlength="7">
                             </div>
                             <div>
-                                <label for="lp-accent"><?php esc_html_e( 'Accent (ring & bar)', 'wp-preloader' ); ?></label>
-                                <input type="color" id="lp-accent" name="<?php echo LP_OPT; ?>[accent_color]"
+                                <label for="aura-accent"><?php esc_html_e( 'Accent (ring & bar)', 'aura-preloader' ); ?></label>
+                                <input type="color" id="aura-accent" name="<?php echo AURA_OPT; ?>[accent_color]"
                                     value="<?php echo esc_attr( $o['accent_color'] ); ?>">
-                                <input type="text" class="lp-hex-text" data-for="lp-accent"
+                                <input type="text" class="aura-hex-text" data-for="aura-accent"
                                     value="<?php echo esc_attr( $o['accent_color'] ); ?>" maxlength="7">
                             </div>
                         </div>
 
-                        <div class="lp-field">
-                            <label for="lp-overlay-opacity">
-                                <?php esc_html_e( 'Overlay opacity', 'wp-preloader' ); ?>
-                                <span id="lp-opacity-val" class="lp-range-val"><?php echo esc_html( $o['overlay_opacity'] ); ?>%</span>
+                        <div class="aura-field">
+                            <label for="aura-overlay-opacity">
+                                <?php esc_html_e( 'Overlay opacity', 'aura-preloader' ); ?>
+                                <span id="aura-opacity-val" class="aura-range-val"><?php echo esc_html( $o['overlay_opacity'] ); ?>%</span>
                             </label>
-                            <input type="range" id="lp-overlay-opacity" name="<?php echo LP_OPT; ?>[overlay_opacity]"
+                            <input type="range" id="aura-overlay-opacity" name="<?php echo AURA_OPT; ?>[overlay_opacity]"
                                 min="0" max="100" step="1" value="<?php echo esc_attr( $o['overlay_opacity'] ); ?>">
                         </div>
 
-                        <div class="lp-field">
-                            <label for="lp-blur">
-                                <?php esc_html_e( 'Blur strength', 'wp-preloader' ); ?>
-                                <span id="lp-blur-val" class="lp-range-val"><?php echo esc_html( $o['blur_strength'] ); ?>px</span>
+                        <div class="aura-field">
+                            <label for="aura-blur">
+                                <?php esc_html_e( 'Blur strength', 'aura-preloader' ); ?>
+                                <span id="aura-blur-val" class="aura-range-val"><?php echo esc_html( $o['blur_strength'] ); ?>px</span>
                             </label>
-                            <input type="range" id="lp-blur" name="<?php echo LP_OPT; ?>[blur_strength]"
+                            <input type="range" id="aura-blur" name="<?php echo AURA_OPT; ?>[blur_strength]"
                                 min="0" max="40" step="1" value="<?php echo esc_attr( $o['blur_strength'] ); ?>">
                         </div>
                     </div>
 
-                    <div class="lp-card">
-                        <h2><?php esc_html_e( 'Preloader Style Presets', 'wp-preloader' ); ?></h2>
+                    <div class="aura-card">
+                        <h2><?php esc_html_e( 'Preloader Style Presets', 'aura-preloader' ); ?></h2>
                         
-                        <div class="lp-field">
-                            <label for="lp-spinner-type"><?php esc_html_e( 'Animation Style', 'wp-preloader' ); ?></label>
-                            <select id="lp-spinner-type" name="<?php echo LP_OPT; ?>[spinner_type]" class="regular-text">
+                        <div class="aura-field">
+                            <label for="aura-spinner-type"><?php esc_html_e( 'Animation Style', 'aura-preloader' ); ?></label>
+                            <select id="aura-spinner-type" name="<?php echo AURA_OPT; ?>[spinner_type]" class="regular-text">
                                 <?php 
-                                foreach ( lp_get_presets() as $key => $preset ) {
+                                foreach ( aura_get_presets() as $key => $preset ) {
                                     echo sprintf(
                                         '<option value="%s" %s>%s</option>',
                                         esc_attr( $key ),
@@ -335,14 +342,14 @@ function lp_settings_page() {
                                 }
                                 ?>
                             </select>
-                            <p class="description"><?php esc_html_e( 'Choose your preferred preloader animation style', 'wp-preloader' ); ?></p>
+                            <p class="description"><?php esc_html_e( 'Choose your preferred preloader animation style', 'aura-preloader' ); ?></p>
                         </div>
 
-                        <div class="lp-field">
-                            <label for="lp-animation-speed"><?php esc_html_e( 'Animation Speed', 'wp-preloader' ); ?></label>
-                            <select id="lp-animation-speed" name="<?php echo LP_OPT; ?>[animation_speed]" class="regular-text">
+                        <div class="aura-field">
+                            <label for="aura-animation-speed"><?php esc_html_e( 'Animation Speed', 'aura-preloader' ); ?></label>
+                            <select id="aura-animation-speed" name="<?php echo AURA_OPT; ?>[animation_speed]" class="regular-text">
                                 <?php 
-                                foreach ( lp_get_animation_speeds() as $key => $speed ) {
+                                foreach ( aura_get_animation_speeds() as $key => $speed ) {
                                     echo sprintf(
                                         '<option value="%s" %s>%s</option>',
                                         esc_attr( $key ),
@@ -352,14 +359,14 @@ function lp_settings_page() {
                                 }
                                 ?>
                             </select>
-                            <p class="description"><?php esc_html_e( 'Control the animation speed of the preloader', 'wp-preloader' ); ?></p>
+                            <p class="description"><?php esc_html_e( 'Control the animation speed of the preloader', 'aura-preloader' ); ?></p>
                         </div>
 
-                        <div class="lp-field">
-                            <label for="lp-progress-style"><?php esc_html_e( 'Progress Bar Style', 'wp-preloader' ); ?></label>
-                            <select id="lp-progress-style" name="<?php echo LP_OPT; ?>[progress_bar_style]" class="regular-text">
+                        <div class="aura-field">
+                            <label for="aura-progress-style"><?php esc_html_e( 'Progress Bar Style', 'aura-preloader' ); ?></label>
+                            <select id="aura-progress-style" name="<?php echo AURA_OPT; ?>[progress_bar_style]" class="regular-text">
                                 <?php 
-                                foreach ( lp_get_progress_bar_styles() as $key => $style ) {
+                                foreach ( aura_get_progress_bar_styles() as $key => $style ) {
                                     echo sprintf(
                                         '<option value="%s" %s>%s</option>',
                                         esc_attr( $key ),
@@ -369,97 +376,97 @@ function lp_settings_page() {
                                 }
                                 ?>
                             </select>
-                            <p class="description"><?php esc_html_e( 'Select how the progress bar should be displayed', 'wp-preloader' ); ?></p>
+                            <p class="description"><?php esc_html_e( 'Select how the progress bar should be displayed', 'aura-preloader' ); ?></p>
                         </div>
 
-                        <div class="lp-field lp-checks">
+                        <div class="aura-field aura-checks">
                             <label>
-                                <input type="checkbox" name="<?php echo LP_OPT; ?>[show_progress]" value="1"
+                                <input type="checkbox" name="<?php echo AURA_OPT; ?>[show_progress]" value="1"
                                     <?php checked( $o['show_progress'] ?? true ); ?>>
-                                <?php esc_html_e( 'Show progress animation', 'wp-preloader' ); ?>
+                                <?php esc_html_e( 'Show progress animation', 'aura-preloader' ); ?>
                             </label>
                         </div>
                     </div>
 
-                    <div class="lp-card">
-                        <h2><?php esc_html_e( 'Elements', 'wp-preloader' ); ?></h2>
-                        <div class="lp-field lp-checks">
+                    <div class="aura-card">
+                        <h2><?php esc_html_e( 'Elements', 'aura-preloader' ); ?></h2>
+                        <div class="aura-field aura-checks">
                             <label>
-                                <input type="checkbox" name="<?php echo LP_OPT; ?>[show_ring]" value="1"
+                                <input type="checkbox" name="<?php echo AURA_OPT; ?>[show_ring]" value="1"
                                     <?php checked( $o['show_ring'] ); ?>>
-                                <?php esc_html_e( 'Show spinner ring', 'wp-preloader' ); ?>
+                                <?php esc_html_e( 'Show spinner ring', 'aura-preloader' ); ?>
                             </label>
                             <label>
-                                <input type="checkbox" name="<?php echo LP_OPT; ?>[show_bar]" value="1"
+                                <input type="checkbox" name="<?php echo AURA_OPT; ?>[show_bar]" value="1"
                                     <?php checked( $o['show_bar'] ); ?>>
-                                <?php esc_html_e( 'Show progress bar', 'wp-preloader' ); ?>
+                                <?php esc_html_e( 'Show progress bar', 'aura-preloader' ); ?>
                             </label>
                             <label>
-                                <input type="checkbox" name="<?php echo LP_OPT; ?>[enable_mobile]" value="1"
+                                <input type="checkbox" name="<?php echo AURA_OPT; ?>[enable_mobile]" value="1"
                                     <?php checked( $o['enable_mobile'] ); ?>>
-                                <?php esc_html_e( 'Show on mobile devices', 'wp-preloader' ); ?>
+                                <?php esc_html_e( 'Show on mobile devices', 'aura-preloader' ); ?>
                             </label>
                         </div>
                     </div>
 
-                    <div class="lp-card">
-                        <h2><?php esc_html_e( 'Timing', 'wp-preloader' ); ?></h2>
-                        <div class="lp-field lp-two-col">
+                    <div class="aura-card">
+                        <h2><?php esc_html_e( 'Timing', 'aura-preloader' ); ?></h2>
+                        <div class="aura-field aura-two-col">
                             <div>
-                                <label for="lp-fade"><?php esc_html_e( 'Fade-out duration (ms)', 'wp-preloader' ); ?></label>
-                                <input type="number" id="lp-fade" name="<?php echo LP_OPT; ?>[fade_duration]"
+                                <label for="aura-fade"><?php esc_html_e( 'Fade-out duration (ms)', 'aura-preloader' ); ?></label>
+                                <input type="number" id="aura-fade" name="<?php echo AURA_OPT; ?>[fade_duration]"
                                     value="<?php echo esc_attr( $o['fade_duration'] ); ?>" min="0" max="3000" class="small-text"> ms
                             </div>
                             <div>
-                                <label for="lp-min"><?php esc_html_e( 'Minimum display time (ms)', 'wp-preloader' ); ?></label>
-                                <input type="number" id="lp-min" name="<?php echo LP_OPT; ?>[min_display]"
+                                <label for="aura-min"><?php esc_html_e( 'Minimum display time (ms)', 'aura-preloader' ); ?></label>
+                                <input type="number" id="aura-min" name="<?php echo AURA_OPT; ?>[min_display]"
                                     value="<?php echo esc_attr( $o['min_display'] ); ?>" min="0" max="5000" class="small-text"> ms
-                                <p class="description"><?php esc_html_e( 'Preloader stays visible for at least this long even if the page loads faster.', 'wp-preloader' ); ?></p>
+                                <p class="description"><?php esc_html_e( 'Preloader stays visible for at least this long even if the page loads faster.', 'aura-preloader' ); ?></p>
                             </div>
                         </div>
                     </div>
 
-                    <?php submit_button( __( 'Save settings', 'wp-preloader' ) ); ?>
+                    <?php submit_button( __( 'Save settings', 'aura-preloader' ) ); ?>
                 </form>
             </div>
 
             <!-- ── Live preview ── -->
-            <div class="lp-preview-col">
-                <div class="lp-card lp-sticky">
-                    <h2><?php esc_html_e( 'Preview', 'wp-preloader' ); ?></h2>
-                    <div id="lp-live-preview">
-                        <div class="lp-prev-bg-sim"></div>
-                        <div class="lp-prev-overlay" id="lpv-overlay"></div>
-                        <div class="lp-prev-inner">
-                            <div class="lp-prev-wrap" id="lpv-wrap">
-                                <div class="lp-prev-ring" id="lpv-ring"></div>
+            <div class="aura-preview-col">
+                <div class="aura-card aura-sticky">
+                    <h2><?php esc_html_e( 'Preview', 'aura-preloader' ); ?></h2>
+                    <div id="aura-live-preview">
+                        <div class="aura-prev-bg-sim"></div>
+                        <div class="aura-prev-overlay" id="aurav-overlay"></div>
+                        <div class="aura-prev-inner">
+                            <div class="aura-prev-wrap" id="aurav-wrap">
+                                <div class="aura-prev-ring" id="aurav-ring"></div>
                                 <?php if ( $o['logo_url'] ) : ?>
-                                <img id="lpv-img" src="<?php echo esc_url( $o['logo_url'] ); ?>"
+                                <img id="aurav-img" src="<?php echo esc_url( $o['logo_url'] ); ?>"
                                     style="width:<?php echo esc_attr( $o['logo_width'] ); ?>px;">
                                 <?php else : ?>
-                                <div id="lpv-placeholder" class="lp-prev-placeholder">LOGO</div>
-                                <img id="lpv-img" src="" style="display:none;width:<?php echo esc_attr( $o['logo_width'] ); ?>px;">
+                                <div id="aurav-placeholder" class="aura-prev-placeholder">LOGO</div>
+                                <img id="aurav-img" src="" style="display:none;width:<?php echo esc_attr( $o['logo_width'] ); ?>px;">
                                 <?php endif; ?>
                             </div>
-                            <div class="lp-prev-bar" id="lpv-bar">
-                                <div class="lp-prev-fill" id="lpv-fill"
+                            <div class="aura-prev-bar" id="aurav-bar">
+                                <div class="aura-prev-fill" id="aurav-fill"
                                     style="background:<?php echo esc_attr( $o['accent_color'] ); ?>"></div>
                             </div>
                         </div>
                     </div>
                     <p class="description" style="text-align:center;margin-top:.5rem">
-                        <?php esc_html_e( 'Updates as you change settings', 'wp-preloader' ); ?>
+                        <?php esc_html_e( 'Updates as you change settings', 'aura-preloader' ); ?>
                     </p>
                 </div>
 
-                <div class="lp-card lp-author-card">
-                    <p class="lp-author-name">Irfan Bhat</p>
-                    <p class="lp-author-meta">
+                <div class="aura-card aura-author-card">
+                    <p class="aura-author-name">Irfan Bhat</p>
+                    <p class="aura-author-meta">
                         <a href="https://irfanbhat.com" target="_blank" rel="noopener">irfanbhat.com</a>
                         &nbsp;·&nbsp;
                         <a href="mailto:info@irfanbhat.com">info@irfanbhat.com</a>
                     </p>
-                    <p class="lp-author-ver">WP Preloader v1.2</p>
+                    <p class="aura-author-ver">Aura Preloader v1.2</p>
                 </div>
             </div>
         </div>

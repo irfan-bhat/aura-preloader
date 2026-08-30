@@ -30,19 +30,19 @@ Before submitting your plugin, ensure it meets these requirements:
 4. Verify your email
 
 ### Step 2: Prepare Your Plugin
-1. **Choose a unique plugin slug** (e.g., `wp-preloader`)
-2. **Update plugin header** in `preloader-plugin.php`:
+1. **Choose a unique plugin slug** (e.g., `aura-preloader`)
+2. **Update plugin header** in `aura-preloader.php`:
    ```php
    /**
-    * Plugin Name: WP Preloader
-    * Plugin URI: https://wordpress.org/plugins/wp-preloader/
+    * Plugin Name: Aura Preloader
+    * Plugin URI: https://wordpress.org/plugins/aura-preloader/
     * Description: A customisable full-screen backdrop-blur preloader with your logo, spinner, and progress bar.
-    * Version: 1.2.0
+    * Version: 1.2.7
     * Author: Irfan Bhat
     * Author URI: https://irfanbhat.com
     * License: GPL-2.0+
     * License URI: https://www.gnu.org/licenses/gpl-2.0.html
-    * Text Domain: wp-preloader
+    * Text Domain: aura-preloader
     */
    ```
 
@@ -63,18 +63,18 @@ Before submitting your plugin, ensure it meets these requirements:
 ### Step 5: SVN Repository Setup
 Once approved, you'll get access to SVN repository:
 ```
-https://plugins.svn.wordpress.org/wp-preloader/
+https://plugins.svn.wordpress.org/aura-preloader/
 ```
 
 Upload your files using SVN:
 ```bash
 # Create zip without .git folder
-zip -r wp-preloader.zip . -x ".git/*"
+zip -r aura-preloader.zip . -x ".git/*"
 
 # Upload to WordPress.org (after approval)
-svn co https://plugins.svn.wordpress.org/wp-preloader/
-cd wp-preloader
-unzip ../wp-preloader.zip
+svn co https://plugins.svn.wordpress.org/aura-preloader/
+cd aura-preloader
+unzip ../aura-preloader.zip
 svn add *
 svn ci -m "Initial release"
 ```

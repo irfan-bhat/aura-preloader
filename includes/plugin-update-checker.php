@@ -6,8 +6,8 @@
  * @link https://github.com/YahnisElsts/plugin-update-checker
  */
 
-if ( ! class_exists( 'LP_Github_Updater' ) ) {
-    class LP_Github_Updater {
+if ( ! class_exists( 'Aura_Github_Updater' ) ) {
+    class Aura_Github_Updater {
         private $github_repo;
         private $plugin_file;
         private $plugin_slug;
@@ -18,7 +18,7 @@ if ( ! class_exists( 'LP_Github_Updater' ) ) {
             $this->github_repo = $github_repo;
             $this->plugin_file = $plugin_file;
             $this->plugin_slug = $plugin_slug;
-            $this->transient_name = 'lp_github_update_' . $this->plugin_slug;
+            $this->transient_name = 'aura_github_update_' . $this->plugin_slug;
 
             add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_for_updates' ] );
             add_filter( 'plugins_api', [ $this, 'plugin_api_info' ], 10, 3 );
@@ -104,7 +104,7 @@ if ( ! class_exists( 'LP_Github_Updater' ) ) {
             }
 
             $remote = new stdClass();
-            $remote->name = isset( $body->name ) ? $body->name : 'WP Preloader';
+            $remote->name = isset( $body->name ) ? $body->name : 'Aura Preloader';
             $remote->slug = $this->plugin_slug;
             $remote->version = $version;
             $remote->tested = get_bloginfo( 'version' );

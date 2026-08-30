@@ -1,35 +1,35 @@
-/* WP Preloader v1.2 — Irfan Bhat — irfanbhat.com */
+/* Aura Preloader v1.2 — Irfan Bhat — irfanbhat.com */
 
-#lp-preloader {
-    --lp-overlay: rgba(255, 255, 255, 0.20);
-    --lp-blur:    12px;
-    --lp-accent:  #DC501E;
-    --lp-logo-w:  64px;
+#aura-preloader {
+    --aura-overlay: rgba(255, 255, 255, 0.20);
+    --aura-blur:    12px;
+    --aura-accent:  #DC501E;
+    --aura-logo-w:  64px;
 
     position: fixed;
     inset: 0;
     z-index: 999999;
 
     /* Frosted-glass backdrop */
-    background: var(--lp-overlay);
-    backdrop-filter: blur(var(--lp-blur)) saturate(1.4);
-    -webkit-backdrop-filter: blur(var(--lp-blur)) saturate(1.4);
+    background: var(--aura-overlay);
+    backdrop-filter: blur(var(--aura-blur)) saturate(1.4);
+    -webkit-backdrop-filter: blur(var(--aura-blur)) saturate(1.4);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    transition: opacity var(--lp-fade, .5s) ease,
-                visibility var(--lp-fade, .5s);
+    transition: opacity var(--aura-fade, .5s) ease,
+                visibility var(--aura-fade, .5s);
 }
 
-#lp-preloader.lp-hidden {
+#aura-preloader.aura-hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-.lp-inner {
+.aura-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,46 +37,46 @@
 }
 
 /* Wrap holds ring + logo together */
-.lp-wrap {
+.aura-wrap {
     position: relative;
-    width: calc(var(--lp-logo-w) + 28px);
-    height: calc(var(--lp-logo-w) + 28px);
+    width: calc(var(--aura-logo-w) + 28px);
+    height: calc(var(--aura-logo-w) + 28px);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.lp-wrap img {
-    width: var(--lp-logo-w);
+.aura-wrap img {
+    width: var(--aura-logo-w);
     height: auto;
     position: relative;
     z-index: 1;
-    animation: lp-pulse 2s ease-in-out infinite;
+    animation: aura-pulse 2s ease-in-out infinite;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.18));
 }
 
-@keyframes lp-pulse {
+@keyframes aura-pulse {
     0%, 100% { transform: scale(1); }
     50%       { transform: scale(1.07); }
 }
 
 /* Spinner ring */
-.lp-ring {
+.aura-ring {
     position: absolute;
     inset: 0;
     border-radius: 50%;
     border: 2.5px solid transparent;
-    border-top-color: var(--lp-accent);
-    border-right-color: color-mix(in srgb, var(--lp-accent) 25%, transparent);
-    animation: lp-spin 1.1s linear infinite;
+    border-top-color: var(--aura-accent);
+    border-right-color: color-mix(in srgb, var(--aura-accent) 25%, transparent);
+    animation: aura-spin 1.1s linear infinite;
 }
 
-@keyframes lp-spin {
+@keyframes aura-spin {
     to { transform: rotate(360deg); }
 }
 
 /* Progress bar */
-.lp-bar {
+.aura-bar {
     width: 160px;
     height: 3px;
     background: rgba(0, 0, 0, 0.10);
@@ -84,10 +84,11 @@
     overflow: hidden;
 }
 
-.lp-fill {
+.aura-fill {
     height: 100%;
     width: 0%;
-    background: var(--lp-accent);
+    background: var(--aura-accent);
     border-radius: 2px;
     transition: width .35s ease;
 }
+

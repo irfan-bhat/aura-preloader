@@ -1,46 +1,46 @@
 <?php
 /**
- * Preloader Presets Configuration
+ * Aura Preloader Presets Configuration
  * 
  * Define preset styles for preloader animations, SVG types, and progress bars
  */
 
-if ( ! function_exists( 'lp_get_presets' ) ) {
+if ( ! function_exists( 'aura_get_presets' ) ) {
     
     /**
      * Get all available preloader presets
      */
-    function lp_get_presets() {
+    function aura_get_presets() {
         return [
             'spinner' => [
-                'label'      => __( 'Spinner Ring', 'wp-preloader' ),
+                'label'      => __( 'Spinner Ring', 'aura-preloader' ),
                 'svg'        => 'spinner.svg',
                 'supports'   => [ 'animation_speed', 'progress_bar' ],
-                'description' => __( 'Classic rotating ring with smooth animation', 'wp-preloader' ),
+                'description' => __( 'Classic rotating ring with smooth animation', 'aura-preloader' ),
             ],
             'dots' => [
-                'label'      => __( 'Bouncing Dots', 'wp-preloader' ),
+                'label'      => __( 'Bouncing Dots', 'aura-preloader' ),
                 'svg'        => 'dots.svg',
                 'supports'   => [ 'animation_speed', 'progress_bar' ],
-                'description' => __( '3 dots bouncing up and down', 'wp-preloader' ),
+                'description' => __( '3 dots bouncing up and down', 'aura-preloader' ),
             ],
             'pulse' => [
-                'label'      => __( 'Pulse', 'wp-preloader' ),
+                'label'      => __( 'Pulse', 'aura-preloader' ),
                 'svg'        => 'pulse.svg',
                 'supports'   => [ 'animation_speed', 'progress_bar' ],
-                'description' => __( 'Center dot with expanding pulse rings', 'wp-preloader' ),
+                'description' => __( 'Center dot with expanding pulse rings', 'aura-preloader' ),
             ],
             'bars' => [
-                'label'      => __( 'Bars', 'wp-preloader' ),
+                'label'      => __( 'Bars', 'aura-preloader' ),
                 'svg'        => 'bars.svg',
                 'supports'   => [ 'animation_speed', 'progress_bar' ],
-                'description' => __( '5 bars with wave animation', 'wp-preloader' ),
+                'description' => __( '5 bars with wave animation', 'aura-preloader' ),
             ],
             'spinner-dots' => [
-                'label'      => __( 'Spinner Dots', 'wp-preloader' ),
+                'label'      => __( 'Spinner Dots', 'aura-preloader' ),
                 'svg'        => 'spinner-dots.svg',
                 'supports'   => [ 'animation_speed', 'progress_bar' ],
-                'description' => __( '8 dots rotating in a circle', 'wp-preloader' ),
+                'description' => __( '8 dots rotating in a circle', 'aura-preloader' ),
             ],
         ];
     }
@@ -48,22 +48,22 @@ if ( ! function_exists( 'lp_get_presets' ) ) {
     /**
      * Get animation speed presets
      */
-    function lp_get_animation_speeds() {
+    function aura_get_animation_speeds() {
         return [
             'slow' => [
-                'label'       => __( 'Slow', 'wp-preloader' ),
+                'label'       => __( 'Slow', 'aura-preloader' ),
                 'multiplier'  => 1.8,
-                'description' => __( 'Relaxed animation pace', 'wp-preloader' ),
+                'description' => __( 'Relaxed animation pace', 'aura-preloader' ),
             ],
             'normal' => [
-                'label'       => __( 'Normal', 'wp-preloader' ),
+                'label'       => __( 'Normal', 'aura-preloader' ),
                 'multiplier'  => 1,
-                'description' => __( 'Standard animation speed', 'wp-preloader' ),
+                'description' => __( 'Standard animation speed', 'aura-preloader' ),
             ],
             'fast' => [
-                'label'       => __( 'Fast', 'wp-preloader' ),
+                'label'       => __( 'Fast', 'aura-preloader' ),
                 'multiplier'  => 0.67,
-                'description' => __( 'Quick animation pace', 'wp-preloader' ),
+                'description' => __( 'Quick animation pace', 'aura-preloader' ),
             ],
         ];
     }
@@ -71,17 +71,17 @@ if ( ! function_exists( 'lp_get_presets' ) ) {
     /**
      * Get progress bar style presets
      */
-    function lp_get_progress_bar_styles() {
+    function aura_get_progress_bar_styles() {
         return [
             'linear' => [
-                'label'       => __( 'Linear Bar', 'wp-preloader' ),
-                'description' => __( 'Horizontal progress bar at bottom', 'wp-preloader' ),
-                'css_class'   => 'lp-progress-linear',
+                'label'       => __( 'Linear Bar', 'aura-preloader' ),
+                'description' => __( 'Horizontal progress bar at bottom', 'aura-preloader' ),
+                'css_class'   => 'aura-progress-linear',
             ],
             'circular' => [
-                'label'       => __( 'Circular Ring', 'wp-preloader' ),
-                'description' => __( 'Circular progress ring around spinner', 'wp-preloader' ),
-                'css_class'   => 'lp-progress-circular',
+                'label'       => __( 'Circular Ring', 'aura-preloader' ),
+                'description' => __( 'Circular progress ring around spinner', 'aura-preloader' ),
+                'css_class'   => 'aura-progress-circular',
             ],
         ];
     }
@@ -89,7 +89,7 @@ if ( ! function_exists( 'lp_get_presets' ) ) {
     /**
      * Get default preset configuration
      */
-    function lp_get_default_presets_config() {
+    function aura_get_default_presets_config() {
         return [
             'spinner_type'      => 'spinner',
             'animation_speed'   => 'normal',
@@ -98,3 +98,4 @@ if ( ! function_exists( 'lp_get_presets' ) ) {
         ];
     }
 }
+

@@ -1,10 +1,10 @@
-/* WP Preloader v1.2 — admin JS — Irfan Bhat */
+/* Aura Preloader v1.2 — admin JS — Irfan Bhat */
 jQuery(function ($) {
 
     /* ── Media uploader ── */
     var frame;
 
-    $('#lp-upload-btn').on('click', function () {
+    $('#aura-upload-btn').on('click', function () {
         if (frame) { frame.open(); return; }
 
         frame = wp.media({
@@ -16,20 +16,20 @@ jQuery(function ($) {
 
         frame.on('select', function () {
             var att = frame.state().get('selection').first().toJSON();
-            $('#lp-logo-url').val(att.url).trigger('input');
-            $('#lp-img-preview').attr('src', att.url);
-            $('#lp-preview-wrap').show();
-            $('#lp-remove-btn').show();
+            $('#aura-logo-url').val(att.url).trigger('input');
+            $('#aura-img-preview').attr('src', att.url);
+            $('#aura-preview-wrap').show();
+            $('#aura-remove-btn').show();
             syncPreviewLogo(att.url);
         });
 
         frame.open();
     });
 
-    $('#lp-remove-btn').on('click', function () {
-        $('#lp-logo-url').val('').trigger('input');
-        $('#lp-img-preview').attr('src', '');
-        $('#lp-preview-wrap').hide();
+    $('#aura-remove-btn').on('click', function () {
+        $('#aura-logo-url').val('').trigger('input');
+        $('#aura-img-preview').attr('src', '');
+        $('#aura-preview-wrap').hide();
         $(this).hide();
         syncPreviewLogo('');
     });
@@ -43,13 +43,13 @@ jQuery(function ($) {
     }
 
     function rebuildOverlay() {
-        var hex     = $('#lp-overlay-color').val();
-        var opacity = parseInt($('#lp-overlay-opacity').val(), 10) / 100;
-        var blur    = parseInt($('#lp-blur').val(), 10);
+        var hex     = $('#aura-overlay-color').val();
+        var opacity = parseInt($('#aura-overlay-opacity').val(), 10) / 100;
+        var blur    = parseInt($('#aura-blur').val(), 10);
         var rgb     = hexToRgb(hex);
         var rgba    = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + opacity.toFixed(2) + ')';
         var bFilter = 'blur(' + blur + 'px) saturate(1.4)';
-        $('#lpv-overlay').css({
+        $('#aurav-overlay').css({
             'background':            rgba,
             'backdrop-filter':       bFilter,
             '-webkit-backdrop-filter': bFilter,
@@ -57,22 +57,22 @@ jQuery(function ($) {
     }
 
     /* ── Overlay color ── */
-    $('#lp-overlay-color').on('input', function () {
+    $('#aura-overlay-color').on('input', function () {
         var hex = $(this).val();
-        $(this).siblings('.lp-hex-text').val(hex);
+        $(this).siblings('.aura-hex-text').val(hex);
         rebuildOverlay();
     });
 
     /* ── Accent color ── */
-    $('#lp-accent').on('input', function () {
+    $('#aura-accent').on('input', function () {
         var hex = $(this).val();
-        $(this).siblings('.lp-hex-text').val(hex);
-        $('#lpv-ring').css('border-top-color', hex);
-        $('#lpv-fill').css('background', hex);
+        $(this).siblings('.aura-hex-text').val(hex);
+        $('#aurav-ring').css('border-top-color', hex);
+        $('#aurav-fill').css('background', hex);
     });
 
     /* ── Hex text inputs ── */
-    $('.lp-hex-text').on('input', function () {
+    $('.aura-hex-text').on('input', function () {
         var val = $(this).val();
         if (/^#[0-9a-fA-F]{6}$/.test(val)) {
             var target = $(this).data('for');
@@ -81,44 +81,45 @@ jQuery(function ($) {
     });
 
     /* ── Blur strength slider ── */
-    $('#lp-blur').on('input', function () {
-        $('#lp-blur-val').text($(this).val() + 'px');
+    $('#aura-blur').on('input', function () {
+        $('#aura-blur-val').text($(this).val() + 'px');
         rebuildOverlay();
     });
 
     /* ── Overlay opacity slider ── */
-    $('#lp-overlay-opacity').on('input', function () {
-        $('#lp-opacity-val').text($(this).val() + '%');
+    $('#aura-overlay-opacity').on('input', function () {
+        $('#aura-opacity-val').text($(this).val() + '%');
         rebuildOverlay();
     });
 
     /* ── Logo width ── */
-    $('#lp-logo-width').on('input', function () {
+    $('#aura-logo-width').on('input', function () {
         var w = parseInt($(this).val(), 10) || 64;
-        $('#lpv-img').css('width', w + 'px');
-        $('#lpv-wrap').css({ width: (w + 28) + 'px', height: (w + 28) + 'px' });
+        $('#aurav-img').css('width', w + 'px');
+        $('#aurav-wrap').css({ width: (w + 28) + 'px', height: (w + 28) + 'px' });
     });
 
     /* ── Toggle ring / bar ── */
     $('input[name$="[show_ring]"]').on('change', function () {
-        $('#lpv-ring').toggle(this.checked);
+        $('#aurav-ring').toggle(this.checked);
     });
     $('input[name$="[show_bar]"]').on('change', function () {
-        $('#lpv-bar').toggle(this.checked);
+        $('#aurav-bar').toggle(this.checked);
     });
 
     /* ── Logo URL typed manually ── */
-    $('#lp-logo-url').on('input', function () {
+    $('#aura-logo-url').on('input', function () {
         syncPreviewLogo($(this).val());
     });
 
     function syncPreviewLogo(url) {
         if (url) {
-            $('#lpv-img').attr('src', url).show();
-            $('#lpv-placeholder').hide();
+            $('#aurav-img').attr('src', url).show();
+            $('#aurav-placeholder').hide();
         } else {
-            $('#lpv-img').hide();
-            $('#lpv-placeholder').show();
+            $('#aurav-img').hide();
+            $('#aurav-placeholder').show();
         }
     }
 });
+

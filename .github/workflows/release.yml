@@ -22,14 +22,14 @@ jobs:
       - name: Update version in plugin file
         run: |
           version="${GITHUB_REF#refs/tags/v}"
-          sed -i "s/Version:     [0-9.]\+/Version:     $version/" preloader-plugin.php
-          sed -i "s/define( 'LP_VERSION',  '[0-9.]\+'/define( 'LP_VERSION',  '$version'/" preloader-plugin.php
+          sed -i "s/Version:     [0-9.]\+/Version:     $version/" aura-preloader.php
+          sed -i "s/define( 'AURA_VERSION',  '[0-9.]\+'/define( 'AURA_VERSION',  '$version'/" aura-preloader.php
 
       - name: Commit version update
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add preloader-plugin.php
+          git add aura-preloader.php
           git commit -m "chore: update version to ${GITHUB_REF#refs/tags/v}"
           git push origin HEAD:main
 
@@ -37,7 +37,7 @@ jobs:
         run: |
           version="${GITHUB_REF#refs/tags/}"
           mkdir -p release
-          zip -r "release/wp-preloader-${version}.zip" . \
+          zip -r "release/aura-preloader-${version}.zip" . \
             -x ".git/*" \
             -x ".github/*" \
             -x "release/*" \
@@ -51,6 +51,6 @@ jobs:
           body: "Release ${{ github.ref_name }}"
           draft: false
           prerelease: false
-          files: release/wp-preloader-${{ github.ref_name }}.zip
+          files: release/aura-preloader-${{ github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

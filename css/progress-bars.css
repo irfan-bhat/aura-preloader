@@ -3,7 +3,7 @@
    ======================== */
 
 /* Linear Progress Bar */
-.lp-progress-linear {
+.aura-progress-linear {
     width: 100%;
     height: 4px;
     background: rgba(0, 0, 0, 0.1);
@@ -13,26 +13,26 @@
     overflow: hidden;
 }
 
-.lp-progress-linear .lp-progress-fill {
+.aura-progress-linear .aura-progress-fill {
     height: 100%;
-    background: var(--lp-accent, #DC501E);
+    background: var(--aura-accent, #DC501E);
     width: 0%;
     transition: width 0.3s ease;
-    box-shadow: 0 0 10px var(--lp-accent, #DC501E);
+    box-shadow: 0 0 10px var(--aura-accent, #DC501E);
 }
 
-@keyframes lp-progress-animation {
+@keyframes aura-progress-animation {
     0% { width: 0%; }
     50% { width: 85%; }
     100% { width: 100%; }
 }
 
-.lp-progress-linear.lp-animating .lp-progress-fill {
-    animation: lp-progress-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
+.aura-progress-linear.aura-animating .aura-progress-fill {
+    animation: aura-progress-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
 }
 
 /* Circular Progress Ring */
-.lp-progress-circular {
+.aura-progress-circular {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -41,22 +41,22 @@
     justify-content: center;
 }
 
-.lp-progress-circular svg {
+.aura-progress-circular svg {
     position: absolute;
     width: 140px;
     height: 140px;
     transform: rotate(-90deg);
 }
 
-.lp-progress-circle-track {
+.aura-progress-circle-track {
     fill: none;
     stroke: rgba(0, 0, 0, 0.1);
     stroke-width: 3;
 }
 
-.lp-progress-circle-fill {
+.aura-progress-circle-fill {
     fill: none;
-    stroke: var(--lp-accent, #DC501E);
+    stroke: var(--aura-accent, #DC501E);
     stroke-width: 3;
     stroke-linecap: round;
     stroke-dasharray: 276;
@@ -64,19 +64,20 @@
     transition: stroke-dashoffset 0.3s ease;
 }
 
-@keyframes lp-progress-circular-animation {
+@keyframes aura-progress-circular-animation {
     0% { stroke-dashoffset: 276; }
     100% { stroke-dashoffset: 0; }
 }
 
-.lp-progress-circular.lp-animating .lp-progress-circle-fill {
-    animation: lp-progress-circular-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
+.aura-progress-circular.aura-animating .aura-progress-circle-fill {
+    animation: aura-progress-circular-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .lp-progress-circular svg {
+    .aura-progress-circular svg {
         width: 100px;
         height: 100px;
     }
 }
+
