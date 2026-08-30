@@ -459,7 +459,7 @@ function aura_settings_page() {
                         &nbsp;·&nbsp;
                         <a href="mailto:info@irfanbhat.com">info@irfanbhat.com</a>
                     </p>
-                    <p class="aura-author-ver">Aura Preloader v1.2</p>
+                    <p class="aura-author-ver">Aura Preloader v1.3.0</p>
                 </div>
             </div>
         </div>
