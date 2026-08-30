@@ -10,7 +10,7 @@ A professional, lightweight WordPress plugin that displays a customizable full-s
 | **Requires WordPress** | 5.5 or higher |
 | **Tested up to** | 6.5 |
 | **Requires PHP** | 7.4 or higher |
-| **License** | Custom (Non-Commercial) |
+| **License** | GPLv2 or later |
 | **Text Domain** | aura-preloader |
 | **Repository** | [GitHub](https://github.com/irfanbhat/aura-preloader) |
 | **Author** | [Irfan Bhat](https://irfanbhat.com) |
@@ -164,23 +164,22 @@ Starting with version 1.2.5, Aura Preloader includes built-in GitHub release int
 
 ## 📜 License
 
-**Non-Commercial Use License**
+This plugin is licensed under the **GNU General Public License v2.0 or later** (GPLv2 or later).
 
-This plugin is provided **FREE** for non-commercial use only. 
+```text
+Aura Preloader - WordPress Plugin
+Copyright (C) 2024-2026 Irfan Bhat
 
-**Permitted:**
-- ✅ Personal websites and blogs
-- ✅ Non-profit organizations
-- ✅ Educational institutions
-- ✅ Open-source projects
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
 
-**Not Permitted:**
-- ❌ Commercial websites or services
-- ❌ SaaS platforms
-- ❌ Resale or redistribution for profit
-- ❌ Use in commercial products
-
-**For commercial use**, please contact the author at [irfanbhat.com](https://irfanbhat.com) for a commercial license.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+```
 
 See [LICENSE](./LICENSE) file for complete terms.
 
