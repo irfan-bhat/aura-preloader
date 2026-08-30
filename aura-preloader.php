@@ -3,7 +3,7 @@
  * Plugin Name: Aura Preloader
  * Plugin URI:  https://wordpress.org/plugins/aura-preloader/
  * Description: A customisable full-screen backdrop-blur preloader with your logo, spinner, and progress bar.
- * Version:     1.2.7
+ * Version:     1.2.8
  * Author:      Irfan Bhat
  * Author URI:  https://irfanbhat.com
  * License:     GPL-2.0+
