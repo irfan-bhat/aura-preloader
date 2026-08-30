@@ -3,7 +3,7 @@
  * Plugin Name: Aura Preloader
  * Plugin URI:  https://wordpress.org/plugins/aura-preloader/
  * Description: A customisable full-screen backdrop-blur preloader with your logo, spinner, and progress bar.
- * Version:     1.2.8
+ * Version:     1.2.9
  * Author:      Irfan Bhat
  * Author URI:  https://irfanbhat.com
  * License:     GPL-2.0+
@@ -13,23 +13,16 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'AURA_VERSION',     '1.2.7' );
+define( 'AURA_VERSION',     '1.2.9' );
 define( 'AURA_DIR',         plugin_dir_path( __FILE__ ) );
 define( 'AURA_URL',         plugin_dir_url( __FILE__ ) );
 define( 'AURA_OPT',         'aura_preloader_options' );
 define( 'AURA_GITHUB_REPO', 'irfanbhat/aura-preloader' );
 
 /* ---------------------------------------------------------------
-   Plugin update checker (GitHub releases)
+   Includes
 --------------------------------------------------------------- */
-require_once AURA_DIR . 'includes/plugin-update-checker.php';
 require_once AURA_DIR . 'includes/presets.php';
-
-add_action( 'plugins_loaded', function() {
-    if ( class_exists( 'Aura_Github_Updater' ) ) {
-        new Aura_Github_Updater( AURA_GITHUB_REPO, plugin_basename( __FILE__ ), 'aura-preloader' );
-    }
-} );
 
 /* ---------------------------------------------------------------
    Default options
