@@ -3,7 +3,7 @@
  * Plugin Name: Vizmal Preloader
  * Plugin URI:  https://wordpress.org/plugins/vizmal-preloader/
  * Description: A customisable full-screen backdrop-blur preloader with your logo, spinner, and progress bar.
- * Version:     1.3.1
+ * Version:     1.3.2
  * Author:      Irfan Bhat
  * Author URI:  https://irfanbhat.com
  * License:     GPL-2.0+
@@ -465,7 +465,7 @@ function vizmal_settings_page() {
                         &nbsp;·&nbsp;
                         <a href="mailto:info@irfanbhat.com">info@irfanbhat.com</a>
                     </p>
-                    <p class="vizmal-author-ver">Vizmal Preloader v1.3.1</p>
+                    <p class="vizmal-author-ver">Vizmal Preloader v1.3.2</p>
                 </div>
             </div>
         </div>
