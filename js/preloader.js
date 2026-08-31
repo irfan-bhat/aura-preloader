@@ -1,15 +1,15 @@
-/* Aura Preloader — front-end script */
+/* Vizmal Preloader — front-end script */
 (function () {
-    var el   = document.getElementById('aura-preloader');
-    var fill = el && el.querySelector('.aura-fill');
+    var el   = document.getElementById('vizmal-preloader');
+    var fill = el && el.querySelector('.vizmal-fill');
     if (!el) return;
 
-    var cfg        = window.auraConfig || {};
+    var cfg        = window.vizmalConfig || {};
     var fade       = parseInt(cfg.fade,       10) || 500;
     var minDisplay = parseInt(cfg.minDisplay, 10) || 800;
 
     // Apply fade duration as a CSS custom property
-    el.style.setProperty('--aura-fade', (fade / 1000) + 's');
+    el.style.setProperty('--vizmal-fade', (fade / 1000) + 's');
 
     var startTime = Date.now();
 
@@ -26,7 +26,7 @@
             if (fill) fill.style.width = '100%';
 
             setTimeout(function () {
-                el.classList.add('aura-hidden');
+                el.classList.add('vizmal-hidden');
 
                 // Remove from DOM after transition ends
                 setTimeout(function () {
@@ -42,4 +42,3 @@
         window.addEventListener('load', hide);
     }
 })();
-

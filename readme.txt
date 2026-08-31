@@ -1,4 +1,4 @@
-=== Aura Preloader ===
+=== Vizmal Preloader ===
 Contributors: irfanbhat
 Tags: preloader, loading screen, spinner, progress bar, backdrop blur
 Requires at least: 5.5
@@ -12,7 +12,7 @@ A customisable full-screen backdrop-blur preloader with your logo, spinner, and 
 
 == Description ==
 
-Aura Preloader creates a sophisticated full-screen loading screen using modern CSS `backdrop-filter` blur and customizable tint effects. The semi-transparent overlay displays your branding while showing blurred site content beneath, providing users with immediate visual feedback that the page is loading.
+Vizmal Preloader creates a sophisticated full-screen loading screen using modern CSS `backdrop-filter` blur and customizable tint effects. The semi-transparent overlay displays your branding while showing blurred site content beneath, providing users with immediate visual feedback that the page is loading.
 
 == Features ==
 
@@ -27,9 +27,9 @@ Aura Preloader creates a sophisticated full-screen loading screen using modern C
 
 == Installation ==
 
-1. Upload the `aura-preloader` folder to the `/wp-content/plugins/` directory.
+1. Upload the `vizmal-preloader` folder to the `/wp-content/plugins/` directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress admin.
-3. Go to **Settings › Aura Preloader** to configure options.
+3. Go to **Settings › Vizmal Preloader** to configure options.
 
 == Frequently Asked Questions ==
 
@@ -37,12 +37,12 @@ Aura Preloader creates a sophisticated full-screen loading screen using modern C
 Manually add `<?php wp_body_open(); ?>` to your theme's `header.php` immediately after the opening `<body>` tag.
 
 = Can I disable the preloader on mobile devices? =
-Yes. In **Settings › Aura Preloader**, toggle the "Show on mobile devices" option off.
+Yes. In **Settings › Vizmal Preloader**, toggle the "Show on mobile devices" option off.
 
 == Changelog ==
 
 = 1.3.0 =
-* Rebranded plugin to Aura Preloader.
+* Rebranded plugin to Vizmal Preloader.
 * Added preset styles and progress bar configurations.
 * Updated compatibility for latest WordPress releases.
 
@@ -51,4 +51,3 @@ Yes. In **Settings › Aura Preloader**, toggle the "Show on mobile devices" opt
 
 = 1.0.0 =
 * Initial release.
-

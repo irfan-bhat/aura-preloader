@@ -23,9 +23,9 @@ jobs:
         run: |
           version="${GITHUB_REF#refs/tags/v}"
           # Update main plugin file
-          sed -i "s/Version:     [0-9.]\+/Version:     $version/" aura-preloader.php
-          sed -i "s/define( 'AURA_VERSION',  '[0-9.]\+'/define( 'AURA_VERSION',  '$version'/" aura-preloader.php
-          sed -i "s/Aura Preloader v[0-9.]\+/Aura Preloader v$version/" aura-preloader.php
+          sed -i "s/Version:     [0-9.]\+/Version:     $version/" vizmal-preloader.php
+          sed -i "s/define( 'VIZMAL_VERSION',  '[0-9.]\+'/define( 'VIZMAL_VERSION',  '$version'/" vizmal-preloader.php
+          sed -i "s/Vizmal Preloader v[0-9.]\+/Vizmal Preloader v$version/" vizmal-preloader.php
           # Keep readme.txt Stable tag in sync (prevents WordPress.org stable_tag_mismatch)
           sed -i "s/Stable tag: [0-9.]\+/Stable tag: $version/" readme.txt
           # Update version badge / heading in readme.md
@@ -35,7 +35,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add aura-preloader.php readme.txt readme.md
+          git add vizmal-preloader.php readme.txt readme.md
           git commit -m "chore: bump version to ${GITHUB_REF#refs/tags/v}"
           git push origin HEAD:main
 
@@ -43,7 +43,7 @@ jobs:
         run: |
           version="${GITHUB_REF#refs/tags/}"
           mkdir -p release
-          zip -r "release/aura-preloader-${version}.zip" . \
+          zip -r "release/vizmal-preloader-${version}.zip" . \
             -x ".git/*" \
             -x ".github/*" \
             -x "release/*" \
@@ -57,6 +57,6 @@ jobs:
           body: "Release ${{ github.ref_name }}"
           draft: false
           prerelease: false
-          files: release/aura-preloader-${{ github.ref_name }}.zip
+          files: release/vizmal-preloader-${{ github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

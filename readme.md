@@ -1,4 +1,4 @@
-# Aura Preloader
+# Vizmal Preloader
 
 A professional, lightweight WordPress plugin that displays a customizable full-screen loading overlay with backdrop blur effect. Enhance user experience with a polished preloader featuring your logo, animated spinner ring, and optional progress bar.
 
@@ -11,13 +11,13 @@ A professional, lightweight WordPress plugin that displays a customizable full-s
 | **Tested up to** | 7.1 |
 | **Requires PHP** | 7.4 or higher |
 | **License** | GPLv2 or later |
-| **Text Domain** | aura-preloader |
-| **Repository** | [GitHub](https://github.com/irfanbhat/aura-preloader) |
+| **Text Domain** | vizmal-preloader |
+| **Repository** | [GitHub](https://github.com/irfanbhat/vizmal-preloader) |
 | **Author** | [Irfan Bhat](https://irfanbhat.com) |
 
 ## 🎯 Overview
 
-Aura Preloader creates a sophisticated full-screen loading screen using modern CSS `backdrop-filter` blur and customizable tint effects. The semi-transparent overlay displays your branding while showing blurred site content beneath, providing users with immediate visual feedback that the page is loading.
+Vizmal Preloader creates a sophisticated full-screen loading screen using modern CSS `backdrop-filter` blur and customizable tint effects. The semi-transparent overlay displays your branding while showing blurred site content beneath, providing users with immediate visual feedback that the page is loading.
 
 ## ✨ Core Features
 
@@ -44,8 +44,8 @@ Aura Preloader creates a sophisticated full-screen loading screen using modern C
 ## 🚀 Installation
 
 ### Step 1: Upload Plugin
-1. Download the plugin from [GitHub Releases](https://github.com/irfanbhat/aura-preloader/releases)
-2. Extract the `aura-preloader` folder
+1. Download the plugin from [GitHub Releases](https://github.com/irfanbhat/vizmal-preloader/releases)
+2. Extract the `vizmal-preloader` folder
 3. Upload to `/wp-content/plugins/`
 4. Activate through **Plugins** menu in WordPress admin
 
@@ -59,7 +59,7 @@ Edit your theme's `header.php` and add this right after the opening `<body>` tag
 ```
 
 ### Step 3: Configure Settings
-1. Go to **Settings › Aura Preloader**
+1. Go to **Settings › Vizmal Preloader**
 2. Upload your logo and adjust dimensions
 3. Customize colors, opacity, and blur effects
 4. Toggle elements and adjust timing
@@ -67,7 +67,7 @@ Edit your theme's `header.php` and add this right after the opening `<body>` tag
 
 ## 🔄 Automatic Updates
 
-Starting with version 1.2.5, Aura Preloader includes built-in GitHub release integration. The plugin automatically:
+Starting with version 1.2.5, Vizmal Preloader includes built-in GitHub release integration. The plugin automatically:
 
 - ✅ Checks for new releases every 12 hours
 - 📬 Displays update notifications on the Plugins page
@@ -100,7 +100,7 @@ Starting with version 1.2.5, Aura Preloader includes built-in GitHub release int
 
 ### Q: Can I disable the preloader on mobile devices?
 
-**A:** Yes. In **Settings › Aura Preloader**, toggle the "Show on mobile devices" option off to disable it for mobile visitors.
+**A:** Yes. In **Settings › Vizmal Preloader**, toggle the "Show on mobile devices" option off to disable it for mobile visitors.
 
 ### Q: How do I customize the overlay and blur effect?
 
@@ -126,7 +126,7 @@ Starting with version 1.2.5, Aura Preloader includes built-in GitHub release int
 ### Version 1.3.0 (Latest)
 
 **Rebranding & Preset Enhancements:**
-- 🎨 Rebranded plugin to **Aura Preloader** (`aura-preloader`)
+- 🎨 Rebranded plugin to **Vizmal Preloader** (`vizmal-preloader`)
 - 🚀 Enhanced preset integration and migration support
 
 ### Version 1.2.5
@@ -167,7 +167,7 @@ Starting with version 1.2.5, Aura Preloader includes built-in GitHub release int
 This plugin is licensed under the **GNU General Public License v2.0 or later** (GPLv2 or later).
 
 ```text
-Aura Preloader - WordPress Plugin
+Vizmal Preloader - WordPress Plugin
 Copyright (C) 2024-2026 Irfan Bhat
 
 This program is free software; you can redistribute it and/or modify
@@ -185,7 +185,7 @@ See [LICENSE](./LICENSE) file for complete terms.
 
 ## 🐛 Support & Issues
 
-Found a bug or have a feature request? Please open an issue on [GitHub Issues](https://github.com/irfanbhat/aura-preloader/issues).
+Found a bug or have a feature request? Please open an issue on [GitHub Issues](https://github.com/irfanbhat/vizmal-preloader/issues).
 
 ## 👨‍💻 Author
 
@@ -208,4 +208,3 @@ Contributions are welcome! For bug fixes and improvements:
 - This plugin uses the `wp_body_open()` hook, introduced in WordPress 5.2. For older versions, manual theme modification is required.
 - Requires PHP 7.4+ for proper functionality.
 - Best viewed in modern browsers that support CSS `backdrop-filter`.
-

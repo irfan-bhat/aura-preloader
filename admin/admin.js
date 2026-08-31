@@ -1,10 +1,10 @@
-/* Aura Preloader v1.3.0 — admin JS — Irfan Bhat */
+/* Vizmal Preloader v1.3.0 — admin JS — Irfan Bhat */
 jQuery(function ($) {
 
     /* ── Media uploader ── */
     var frame;
 
-    $('#aura-upload-btn').on('click', function () {
+    $('#vizmal-upload-btn').on('click', function () {
         if (frame) { frame.open(); return; }
 
         frame = wp.media({
@@ -16,20 +16,20 @@ jQuery(function ($) {
 
         frame.on('select', function () {
             var att = frame.state().get('selection').first().toJSON();
-            $('#aura-logo-url').val(att.url).trigger('input');
-            $('#aura-img-preview').attr('src', att.url);
-            $('#aura-preview-wrap').show();
-            $('#aura-remove-btn').show();
+            $('#vizmal-logo-url').val(att.url).trigger('input');
+            $('#vizmal-img-preview').attr('src', att.url);
+            $('#vizmal-preview-wrap').show();
+            $('#vizmal-remove-btn').show();
             syncPreviewLogo(att.url);
         });
 
         frame.open();
     });
 
-    $('#aura-remove-btn').on('click', function () {
-        $('#aura-logo-url').val('').trigger('input');
-        $('#aura-img-preview').attr('src', '');
-        $('#aura-preview-wrap').hide();
+    $('#vizmal-remove-btn').on('click', function () {
+        $('#vizmal-logo-url').val('').trigger('input');
+        $('#vizmal-img-preview').attr('src', '');
+        $('#vizmal-preview-wrap').hide();
         $(this).hide();
         syncPreviewLogo('');
     });
@@ -43,13 +43,13 @@ jQuery(function ($) {
     }
 
     function rebuildOverlay() {
-        var hex     = $('#aura-overlay-color').val();
-        var opacity = parseInt($('#aura-overlay-opacity').val(), 10) / 100;
-        var blur    = parseInt($('#aura-blur').val(), 10);
+        var hex     = $('#vizmal-overlay-color').val();
+        var opacity = parseInt($('#vizmal-overlay-opacity').val(), 10) / 100;
+        var blur    = parseInt($('#vizmal-blur').val(), 10);
         var rgb     = hexToRgb(hex);
         var rgba    = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + opacity.toFixed(2) + ')';
         var bFilter = 'blur(' + blur + 'px) saturate(1.4)';
-        $('#aurav-overlay').css({
+        $('#vizmalv-overlay').css({
             'background':            rgba,
             'backdrop-filter':       bFilter,
             '-webkit-backdrop-filter': bFilter,
@@ -57,22 +57,22 @@ jQuery(function ($) {
     }
 
     /* ── Overlay color ── */
-    $('#aura-overlay-color').on('input', function () {
+    $('#vizmal-overlay-color').on('input', function () {
         var hex = $(this).val();
-        $(this).siblings('.aura-hex-text').val(hex);
+        $(this).siblings('.vizmal-hex-text').val(hex);
         rebuildOverlay();
     });
 
     /* ── Accent color ── */
-    $('#aura-accent').on('input', function () {
+    $('#vizmal-accent').on('input', function () {
         var hex = $(this).val();
-        $(this).siblings('.aura-hex-text').val(hex);
-        $('#aurav-ring').css('border-top-color', hex);
-        $('#aurav-fill').css('background', hex);
+        $(this).siblings('.vizmal-hex-text').val(hex);
+        $('#vizmalv-ring').css('border-top-color', hex);
+        $('#vizmalv-fill').css('background', hex);
     });
 
     /* ── Hex text inputs ── */
-    $('.aura-hex-text').on('input', function () {
+    $('.vizmal-hex-text').on('input', function () {
         var val = $(this).val();
         if (/^#[0-9a-fA-F]{6}$/.test(val)) {
             var target = $(this).data('for');
@@ -81,44 +81,44 @@ jQuery(function ($) {
     });
 
     /* ── Blur strength slider ── */
-    $('#aura-blur').on('input', function () {
-        $('#aura-blur-val').text($(this).val() + 'px');
+    $('#vizmal-blur').on('input', function () {
+        $('#vizmal-blur-val').text($(this).val() + 'px');
         rebuildOverlay();
     });
 
     /* ── Overlay opacity slider ── */
-    $('#aura-overlay-opacity').on('input', function () {
-        $('#aura-opacity-val').text($(this).val() + '%');
+    $('#vizmal-overlay-opacity').on('input', function () {
+        $('#vizmal-opacity-val').text($(this).val() + '%');
         rebuildOverlay();
     });
 
     /* ── Logo width ── */
-    $('#aura-logo-width').on('input', function () {
+    $('#vizmal-logo-width').on('input', function () {
         var w = parseInt($(this).val(), 10) || 64;
-        $('#aurav-img').css('width', w + 'px');
-        $('#aurav-wrap').css({ width: (w + 28) + 'px', height: (w + 28) + 'px' });
+        $('#vizmalv-img').css('width', w + 'px');
+        $('#vizmalv-wrap').css({ width: (w + 28) + 'px', height: (w + 28) + 'px' });
     });
 
     /* ── Toggle ring / bar ── */
     $('input[name$="[show_ring]"]').on('change', function () {
-        $('#aurav-ring').toggle(this.checked);
+        $('#vizmalv-ring').toggle(this.checked);
     });
     $('input[name$="[show_bar]"]').on('change', function () {
-        $('#aurav-bar').toggle(this.checked);
+        $('#vizmalv-bar').toggle(this.checked);
     });
 
     /* ── Logo URL typed manually ── */
-    $('#aura-logo-url').on('input', function () {
+    $('#vizmal-logo-url').on('input', function () {
         syncPreviewLogo($(this).val());
     });
 
     function syncPreviewLogo(url) {
         if (url) {
-            $('#aurav-img').attr('src', url).show();
-            $('#aurav-placeholder').hide();
+            $('#vizmalv-img').attr('src', url).show();
+            $('#vizmalv-placeholder').hide();
         } else {
-            $('#aurav-img').hide();
-            $('#aurav-placeholder').show();
+            $('#vizmalv-img').hide();
+            $('#vizmalv-placeholder').show();
         }
     }
 
@@ -132,50 +132,49 @@ jQuery(function ($) {
     };
 
     function applySpinnerType(type) {
-        var ring = $('#aurav-ring');
+        var ring = $('#vizmalv-ring');
         // Remove all previous type classes
         ring.removeClass(function (i, cls) {
-            return (cls.match(/(^|\s)aurav-type-\S+/g) || []).join(' ');
+            return (cls.match(/(^|\s)vizmalv-type-\S+/g) || []).join(' ');
         });
-        ring.addClass('aurav-type-' + type);
+        ring.addClass('vizmalv-type-' + type);
         // Update the preview label if one exists
-        $('#aurav-spinner-label').text(spinnerLabels[type] || type);
+        $('#vizmalv-spinner-label').text(spinnerLabels[type] || type);
     }
 
-    $('#aura-spinner-type').on('change', function () {
+    $('#vizmal-spinner-type').on('change', function () {
         applySpinnerType($(this).val());
     });
 
     /* ── Progress Bar Style ── */
     function applyProgressStyle(style) {
-        var bar  = $('#aurav-bar');
-        var fill = $('#aurav-fill');
+        var bar  = $('#vizmalv-bar');
+        var fill = $('#vizmalv-fill');
         if (style === 'circular') {
-            bar.addClass('aurav-circular').removeClass('aurav-linear');
-            fill.addClass('aurav-circular-fill').removeClass('aurav-linear-fill');
+            bar.addClass('vizmalv-circular').removeClass('vizmalv-linear');
+            fill.addClass('vizmalv-circular-fill').removeClass('vizmalv-linear-fill');
         } else {
-            bar.addClass('aurav-linear').removeClass('aurav-circular');
-            fill.addClass('aurav-linear-fill').removeClass('aurav-circular-fill');
+            bar.addClass('vizmalv-linear').removeClass('vizmalv-circular');
+            fill.addClass('vizmalv-linear-fill').removeClass('vizmalv-circular-fill');
         }
         // Update label if present
-        $('#aurav-bar-style-label').text(style === 'circular' ? 'Circular Ring' : 'Linear Bar');
+        $('#vizmalv-bar-style-label').text(style === 'circular' ? 'Circular Ring' : 'Linear Bar');
     }
 
-    $('#aura-progress-style').on('change', function () {
+    $('#vizmal-progress-style').on('change', function () {
         applyProgressStyle($(this).val());
     });
 
     /* ── Initialise preview from saved values on page load ── */
     (function init() {
-        applySpinnerType($('#aura-spinner-type').val() || 'spinner');
-        applyProgressStyle($('#aura-progress-style').val() || 'linear');
+        applySpinnerType($('#vizmal-spinner-type').val() || 'spinner');
+        applyProgressStyle($('#vizmal-progress-style').val() || 'linear');
         // Sync accent to ring/fill initial colour
-        var accent = $('#aura-accent').val();
+        var accent = $('#vizmal-accent').val();
         if (accent) {
-            $('#aurav-ring').css('border-top-color', accent);
-            $('#aurav-fill').css('background', accent);
+            $('#vizmalv-ring').css('border-top-color', accent);
+            $('#vizmalv-fill').css('background', accent);
         }
         rebuildOverlay();
     })();
 });
-

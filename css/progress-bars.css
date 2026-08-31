@@ -3,7 +3,7 @@
    ======================== */
 
 /* Linear Progress Bar */
-.aura-progress-linear {
+.vizmal-progress-linear {
     width: 100%;
     height: 4px;
     background: rgba(0, 0, 0, 0.1);
@@ -13,26 +13,26 @@
     overflow: hidden;
 }
 
-.aura-progress-linear .aura-progress-fill {
+.vizmal-progress-linear .vizmal-progress-fill {
     height: 100%;
-    background: var(--aura-accent, #DC501E);
+    background: var(--vizmal-accent, #DC501E);
     width: 0%;
     transition: width 0.3s ease;
-    box-shadow: 0 0 10px var(--aura-accent, #DC501E);
+    box-shadow: 0 0 10px var(--vizmal-accent, #DC501E);
 }
 
-@keyframes aura-progress-animation {
+@keyframes vizmal-progress-animation {
     0% { width: 0%; }
     50% { width: 85%; }
     100% { width: 100%; }
 }
 
-.aura-progress-linear.aura-animating .aura-progress-fill {
-    animation: aura-progress-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
+.vizmal-progress-linear.vizmal-animating .vizmal-progress-fill {
+    animation: vizmal-progress-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
 }
 
 /* Circular Progress Ring */
-.aura-progress-circular {
+.vizmal-progress-circular {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -41,22 +41,22 @@
     justify-content: center;
 }
 
-.aura-progress-circular svg {
+.vizmal-progress-circular svg {
     position: absolute;
     width: 140px;
     height: 140px;
     transform: rotate(-90deg);
 }
 
-.aura-progress-circle-track {
+.vizmal-progress-circle-track {
     fill: none;
     stroke: rgba(0, 0, 0, 0.1);
     stroke-width: 3;
 }
 
-.aura-progress-circle-fill {
+.vizmal-progress-circle-fill {
     fill: none;
-    stroke: var(--aura-accent, #DC501E);
+    stroke: var(--vizmal-accent, #DC501E);
     stroke-width: 3;
     stroke-linecap: round;
     stroke-dasharray: 276;
@@ -64,20 +64,19 @@
     transition: stroke-dashoffset 0.3s ease;
 }
 
-@keyframes aura-progress-circular-animation {
+@keyframes vizmal-progress-circular-animation {
     0% { stroke-dashoffset: 276; }
     100% { stroke-dashoffset: 0; }
 }
 
-.aura-progress-circular.aura-animating .aura-progress-circle-fill {
-    animation: aura-progress-circular-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
+.vizmal-progress-circular.vizmal-animating .vizmal-progress-circle-fill {
+    animation: vizmal-progress-circular-animation 2s cubic-bezier(0.1, 0.6, 0.35, 1) infinite;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .aura-progress-circular svg {
+    .vizmal-progress-circular svg {
         width: 100px;
         height: 100px;
     }
 }
-
